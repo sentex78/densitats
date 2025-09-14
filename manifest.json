@@ -1,6 +1,6 @@
 {
-  "name": "Calculadora d’Àrids",
-  "short_name": "Àrids",
+  "name": "Calculadora tècnica d’obra",
+  "short_name": "CalcObra",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
