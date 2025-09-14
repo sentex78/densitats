@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>🟦 Acer laminat — IPN, IPE, HEB</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+    <link rel="icon" href="icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="icon-512.png">
+    <style>
+        :root {
+            --brand: #2c3e50;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 0 0 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input {
+            padding: 12px;
+            margin-top: 6px;
+            width: 100%;
+            font-size: 1.05em;
+        }
+
+        nav {
+            margin: 8px 0 16px;
+            text-align: center;
+        }
+
+        nav a {
+            margin: 0 10px;
+            color: var(--brand);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hint {
+            color: #666;
+            font-size: .95em;
+        }
+
+        .grid {
+            margin-top: 16px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        th {
+            background: #f5f5f5;
+        }
+
+        td.num {
+            text-align: right;
+        }
+
+        @media (max-width:600px) {
+            body {
+                padding: 12px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+                font-size: .95em;
+            }
+
+            table {
+                font-size: .95em;
+            }
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #555;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>🟦 Acer laminat — IPN, IPE, HEB</h2>
+
+    <nav>
+        <a href="index.html">⬅️ Inici</a> |
+        <a href="volum-a-pes.html">📥 Volum → Pes</a> |
+        <a href="pes-a-volum.html">📤 Pes → Volum</a> |
+        <a href="acer-corrugat.html">🧱 Acer corrugat</a> |
+        <a href="about.html">ℹ️ Sobre l’app</a>
+    </nav>
+
+    <label for="longitud">Longitud de la peça (m):</label>
+    <input type="number" id="longitud" placeholder="Ex: 6" step="any" value="6">
+
+    <p class="hint">Es mostren els pesos segons les taules teòriques de perfils laminats (kg/m).</p>
+
+    <div class="grid">
+        <table id="taula">
+            <thead>
+                <tr>
+                    <th>Perfil</th>
+                    <th>Pes específic (kg/m)</th>
+                    <th>Pes total (kg)</th>
+                    <th>Pes total (t)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <footer>
+        Versió 1.0 · Creat per <strong>Salvador Rodríguez</strong>
+    </footer>
+
+    <script>
+        const PERFILS = [
+            // IPN
+            { name: "IPN80", kgm: 6.2 }, { name: "IPN100", kgm: 8.3 }, { name: "IPN120", kgm: 10.9 },
+            { name: "IPN140", kgm: 13.6 }, { name: "IPN160", kgm: 16.5 }, { name: "IPN180", kgm: 19.9 },
+            { name: "IPN200", kgm: 23.9 }, { name: "IPN220", kgm: 28.5 }, { name: "IPN240", kgm: 33.4 },
+            { name: "IPN260", kgm: 38.9 }, { name: "IPN280", kgm: 44.9 }, { name: "IPN300", kgm: 51.5 },
+            { name: "IPN320", kgm: 58.7 }, { name: "IPN340", kgm: 66.5 }, { name: "IPN360", kgm: 75.0 },
+            { name: "IPN380", kgm: 84.0 }, { name: "IPN400", kgm: 93.9 }, { name: "IPN450", kgm: 118.0 },
+            { name: "IPN500", kgm: 146.0 }, { name: "IPN550", kgm: 178.0 }, { name: "IPN600", kgm: 214.0 },
+
+            // HEB (només mostro fins 400, però hi ha fins a 1000)
+            { name: "HEB100", kgm: 20.4 }, { name: "HEB120", kgm: 26.7 }, { name: "HEB140", kgm: 33.7 },
+            { name: "HEB160", kgm: 42.6 }, { name: "HEB180", kgm: 52.2 }, { name: "HEB200", kgm: 62.5 },
+            { name: "HEB220", kgm: 74.4 }, { name: "HEB240", kgm: 87.0 }, { name: "HEB260", kgm: 103.0 },
+            { name: "HEB280", kgm: 112.0 }, { name: "HEB300", kgm: 126.0 }, { name: "HEB320", kgm: 141.0 },
+            { name: "HEB340", kgm: 155.0 }, { name: "HEB360", kgm: 171.0 }, { name: "HEB400", kgm: 199.0 },
+
+            // IPE
+            { name: "IPE80", kgm: 6.0 }, { name: "IPE100", kgm: 8.1 }, { name: "IPE120", kgm: 10.4 },
+            { name: "IPE140", kgm: 12.9 }, { name: "IPE160", kgm: 15.8 }, { name: "IPE180", kgm: 18.8 },
+            { name: "IPE200", kgm: 22.4 }, { name: "IPE220", kgm: 26.2 }, { name: "IPE240", kgm: 30.7 },
+            { name: "IPE270", kgm: 36.1 }, { name: "IPE300", kgm: 42.2 }, { name: "IPE330", kgm: 49.1 },
+            { name: "IPE360", kgm: 57.1 }, { name: "IPE400", kgm: 66.3 }, { name: "IPE450", kgm: 76.5 },
+            { name: "IPE500", kgm: 88.3 }, { name: "IPE550", kgm: 101.0 }, { name: "IPE600", kgm: 115.0 },
+
+            // UPN
+            { name: "UPN80", kgm: 8.64 }, { name: "UPN100", kgm: 10.6 }, { name: "UPN120", kgm: 13.4 },
+            { name: "UPN140", kgm: 16.3 }, { name: "UPN160", kgm: 19.3 }, { name: "UPN180", kgm: 23.0 },
+            { name: "UPN200", kgm: 26.9 }, { name: "UPN220", kgm: 31.3 }, { name: "UPN240", kgm: 36.2 },
+            { name: "UPN260", kgm: 41.6 }, { name: "UPN280", kgm: 47.4 }, { name: "UPN300", kgm: 53.8 },
+            { name: "UPN320", kgm: 60.9 }, { name: "UPN340", kgm: 68.6 }, { name: "UPN360", kgm: 77.0 },
+            { name: "UPN380", kgm: 86.0 }, { name: "UPN400", kgm: 95.8 }
+
+        ];
+        function fmt(n, min = 2, max = 3) {
+            return n.toLocaleString("ca-ES", { minimumFractionDigits: min, maximumFractionDigits: max });
+        }
+
+        function render() {
+            const L = parseFloat(document.getElementById("longitud").value);
+            const len = (isNaN(L) || L < 0) ? 0 : L;
+
+            const tbody = document.querySelector("#taula tbody");
+            tbody.innerHTML = "";
+
+            PERFILS.forEach(p => {
+                const kg = p.kgm * len;
+                const t = kg / 1000;
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+          <td>${p.name}</td>
+          <td class="num">${fmt(p.kgm)}</td>
+          <td class="num"><strong>${fmt(kg)}</strong></td>
+          <td class="num">${fmt(t, 4, 6)}</td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.getElementById("longitud").addEventListener("input", render);
+        render();
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+
+</html>

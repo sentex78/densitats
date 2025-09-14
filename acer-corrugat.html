@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🧱 Acer corrugat — pes per diàmetres</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2c3e50">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icon-512.png">
+  <style>
+    :root { --brand:#2c3e50; }
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
+    h2 { text-align: center; margin: 0 0 10px; }
+    label { display:block; margin-top:15px; }
+    input { padding: 12px; margin-top: 6px; width: 100%; font-size: 1.05em; }
+    nav { margin: 8px 0 16px; text-align: center; }
+    nav a { margin:0 10px; color:var(--brand); text-decoration:none; font-weight:bold; }
+    .hint { color:#666; font-size:.95em; }
+    .grid { margin-top: 16px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    table { width:100%; border-collapse:collapse; table-layout:auto; }
+    th, td { border:1px solid #ddd; padding:10px; }
+    th { background:#f5f5f5; }
+    td.num { text-align:right; }
+    @media (max-width:600px){
+      body{ padding:12px; }
+      th,td{ padding:8px; font-size:.95em; }
+      table{ font-size:.95em; }
+    }
+    footer { margin-top: 30px; font-size: 0.9em; color: #555; text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>🧱 Acer corrugat — pes per diàmetres</h2>
+
+  <nav>
+    <a href="index.html">⬅️ Inici</a> |
+    <a href="volum-a-pes.html">📥 Volum → Pes</a> |
+    <a href="pes-a-volum.html">📤 Pes → Volum</a> |
+    <a href="acer-laminat.html">🟦 Acer laminat</a> |
+    <a href="about.html">ℹ️ Sobre l’app</a>
+  </nav>
+
+  <label for="longitud">Longitud de la barra (m):</label>
+  <input type="number" id="longitud" placeholder="Ex: 12" step="any" value="">
+
+  <p class="hint">
+    Fórmula utilitzada: <code>kg/m = 0,006165 × φ²</code> (φ en mm). Densitat d’acer ≈ 7,85 t/m³.
+  </p>
+
+  <div class="grid">
+    <table id="taula">
+      <thead>
+        <tr>
+          <th>Diàmetre (mm)</th>
+          <th>Pes específic (kg/m)</th>
+          <th>Pes barra (kg)</th>
+          <th>Pes barra (t)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <footer>
+    Versió 1.0 · Creat per <strong>Salvador Rodríguez</strong>
+  </footer>
+
+  <script>
+    // Diàmetres habituals
+    const DIAMS = [6, 8, 10, 12, 14, 16, 20, 25, 32, 40];
+
+    // kg/m = 0.006165 * d^2  (d en mm)
+    function kgPerMetre(d) { return 0.006165 * d * d; }
+
+    function fmt(n, min=2, max=3){
+      return n.toLocaleString("ca-ES", {minimumFractionDigits:min, maximumFractionDigits:max});
+    }
+
+    function render(){
+      const L = parseFloat(document.getElementById("longitud").value);
+      const len = (isNaN(L) || L < 0) ? 0 : L;
+
+      const tbody = document.querySelector("#taula tbody");
+      tbody.innerHTML = "";
+
+      DIAMS.forEach(d => {
+        const kgm = kgPerMetre(d);
+        const kg  = kgm * len;
+        const t   = kg / 1000;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${d}</td>
+          <td class="num">${fmt(kgm,2,3)}</td>
+          <td class="num"><strong>${fmt(kg,2,3)}</strong></td>
+          <td class="num">${fmt(t,4,6)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById("longitud").addEventListener("input", render);
+    render();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>
