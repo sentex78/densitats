@@ -1,0 +1,20 @@
+https://sentex78.github.io/densitats/
+# zip -r "backups/$(date +'%Y_%m_%d_%H%M')_densitats.zip" * -x "backups/*" "*.zip"
+
+Si tienes code instalado en tu terminal, ejecuta:
+# code .
+Eso abrirá directamente el proyecto en VS Code.
+
+importar todo nuevo:
+# git clone https://github.com/sentex78/densitats.git
+
+forzar exportar local:
+# git pull origin main --rebase
+
+Subir cambios locales a GitHub
+Si editas algo en VS Code y quieres sincronizar tus cambios con el remoto:
+#
+git add .
+git commit -m "backup"
+git push origin main
+#
