@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ca">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,22 +10,55 @@
   <link rel="icon" href="icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="icon-512.png">
   <style>
-    body { font-family: Arial, sans-serif; text-align:center; padding:40px; background:#f5f5f5; }
-    h1 { margin-bottom: 30px; }
-    nav a { display:inline-block; margin:10px; padding:12px 25px; font-size:1.1em; border-radius:8px; background:#2c3e50; color:#fff; text-decoration:none; }
-    nav a:hover { background:#1a252f; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 25px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      background: #2c3e50;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      background: #1a252f;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #555;
+      text-align: center;
+    }
   </style>
 </head>
+
 <body>
   <h1>🪨 Calculadores de densitats</h1>
   <p>Escull una opció:</p>
   <nav>
-    <a href="pes-a-volum.html">⚖️ Pes per volum (m³ → tn)</a>
-    <a href="volum-a-pes.html">⚖️ Volum per pes (tn → m³)</a>
+    <a href="volum-a-pes.html">📥 Volum → Pes (m³ → tn)</a>
+    <a href="pes-a-volum.html">📤 Pes → Volum (tn → m³)</a>
     <a href="about.html">ℹ️ Sobre l’app</a>
   </nav>
+  <footer>
+    Versió 1.0 · Creat per <strong>Salvador Rodríguez</strong>
+  </footer>
   <script>
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
   </script>
 </body>
+
 </html>

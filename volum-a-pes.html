@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ca">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,30 +10,104 @@
   <link rel="icon" href="icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="icon-512.png">
   <style>
-    :root { --brand:#2c3e50; }
-    * { box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
-    h2 { text-align: center; margin: 0 0 10px; }
-    label { display:block; margin-top:15px; }
-    input { padding: 12px; margin-top: 6px; width: 100%; font-size: 1.05em; }
-    nav { margin: 8px 0 16px; text-align: center; }
-    nav a { margin:0 10px; color:var(--brand); text-decoration:none; font-weight:bold; }
-    .hint { color:#666; font-size: .95em; }
-    .grid { margin-top: 16px; overflow-x: auto; }
-    table { width:100%; border-collapse: collapse; min-width: 480px; }
-    th, td { border:1px solid #ddd; padding:10px; text-align:left; }
-    th { background:#f5f5f5; }
+    :root {
+      --brand: #2c3e50;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 0 0 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    input {
+      padding: 12px;
+      margin-top: 6px;
+      width: 100%;
+      font-size: 1.05em;
+    }
+
+    nav {
+      margin: 8px 0 16px;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hint {
+      color: #666;
+      font-size: .95em;
+    }
+
+    .grid {
+      margin-top: 16px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 480px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #f5f5f5;
+    }
+
     @media (max-width:600px) {
-      body { padding: 12px; }
-      th, td { padding:8px; font-size: .95em; }
+      body {
+        padding: 12px;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        font-size: .95em;
+      }
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #555;
+      text-align: center;
     }
   </style>
 </head>
+
 <body>
-  <h2>⚖️ Calculadora de materials (m³ → t)</h2>
+  <h2>📥 Volum → Pes (m³ → tn)</h2>
 
   <nav>
     <a href="index.html">⬅️ Inici</a> |
+    <a href="pes-a-volum.html">📥 Pes → Volum</a> |
     <a href="about.html">ℹ️ Sobre l’app</a>
   </nav>
 
@@ -44,38 +119,50 @@
   <div class="grid">
     <table id="taula">
       <thead>
-        <tr><th>Material</th><th>Densitat (t/m³)</th><th>Pes (tn)</th></tr>
+        <tr>
+          <th>Material</th>
+          <th>Densitat (tn/m³)</th>
+          <th>Pes (tn)</th>
+        </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
+  <footer>
+    Versió 1.0 · Creat per <strong>Salvador Rodríguez</strong>
+  </footer>
 
   <script>
     const PRODUCTS = [
-      {name:"FORMIGÓ ARMAT", density:2.50},
-      {name:"FORMIGÓ EN MASSA", density:2.40},
-      {name:"MORTER", density:2.10},  
-      {name:"SORRA MIXTA 0/4", density:1.55},
-      {name:"SORRA ARREBOSSAR 0/2", density:1.55},
-      {name:"SORRA DE RIU 0/2", density:1.55},
-      {name:"SORRA DE RIU 0/4", density:1.55},
-      {name:"POLS 0/2", density:1.50},
-      {name:"SORRA PER TAPAR CANALITZACIONS 0/4-0/5", density:1.50},
-      {name:"SAULÓ CRIBAT FI 0/6", density:1.60},
-      {name:"SAULÓ 0/12", density:1.60},
-      {name:"TOT-Ú ARTIFICIAL CANTERA 0/25", density:1.90},
-      {name:"GRAVETES MATXACADES 4/8-8/16-16/22-22/45", density:1.60},
-      {name:"CÒDOL 4/10-10/16-16/22-22/45", density:1.70},
-      {name:"BOLO 60-80 o 80-150", density:1.80},
-      {name:"MESCLA PETITA 0/16", density:1.85},
-      {name:"MESCLA NORMAL O GRAN 0/22", density:1.85},
-      {name:"MESCLA ESPECIAL PER GUNITAR 0/12", density:1.85},
-      {name:"SUB-BASE Natural 0/20", density:1.90},
-      {name:"SUB-BASE Calcària 0/30", density:1.85},
-      {name:"TERRA VEGETAL", density:1.20},
-      {name:"TERRA + SORRA", density:1.40},
-      {name:"RECICLAT CERÀMIC 0/20-20/40 <40", density:1.30},
-      {name:"RECICLAT DE FORMIGÓ 0/20-20/40 <40", density:1.55}
+      { name: "AIGUA", density: 1.00 },
+      { name: "FORMIGÓ ARMAT", density: 2.50 },
+      { name: "FORMIGÓ EN MASSA", density: 2.40 },
+      { name: "ASFALT EN CALENT", density: 2.40 },
+      { name: "ACER D’ARMADURA", density: 7.85 },
+      { name: "POLIESTIRÈ EXPANDIT (EPS)", density: 0.03 },
+      { name: "LLANA MINERAL", density: 0.05 },
+      { name: "MORTER", density: 2.10 },
+      { name: "SORRA MIXTA 0/4", density: 1.55 },
+      { name: "SORRA ARREBOSSAR 0/2", density: 1.55 },
+      { name: "SORRA DE RIU 0/2", density: 1.55 },
+      { name: "SORRA DE RIU 0/4", density: 1.55 },
+      { name: "POLS 0/2", density: 1.50 },
+      { name: "SORRA PER TAPAR CANALITZACIONS 0/4-0/5", density: 1.50 },
+      { name: "SAULÓ CRIBAT FI 0/6", density: 1.60 },
+      { name: "SAULÓ 0/12", density: 1.60 },
+      { name: "TOT-Ú ARTIFICIAL CANTERA 0/25", density: 1.90 },
+      { name: "GRAVETES MATXACADES 4/8-8/16-16/22-22/45", density: 1.60 },
+      { name: "CÒDOL 4/10-10/16-16/22-22/45", density: 1.70 },
+      { name: "BOLO 60-80 o 80-150", density: 1.80 },
+      { name: "MESCLA PETITA 0/16", density: 1.85 },
+      { name: "MESCLA NORMAL O GRAN 0/22", density: 1.85 },
+      { name: "MESCLA ESPECIAL PER GUNITAR 0/12", density: 1.85 },
+      { name: "SUB-BASE Natural 0/20", density: 1.90 },
+      { name: "SUB-BASE Calcària 0/30", density: 1.85 },
+      { name: "TERRA VEGETAL", density: 1.20 },
+      { name: "TERRA + SORRA", density: 1.40 },
+      { name: "RECICLAT CERÀMIC 0/20-20/40 <40", density: 1.30 },
+      { name: "RECICLAT DE FORMIGÓ 0/20-20/40 <40", density: 1.55 }
     ];
 
     function formatEU(num) {
@@ -104,4 +191,5 @@
     }
   </script>
 </body>
+
 </html>

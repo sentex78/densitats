@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ca">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,16 +10,57 @@
   <link rel="icon" href="icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="icon-512.png">
   <style>
-    body { font-family: Arial, sans-serif; max-width: 720px; margin: 0 auto; padding: 30px; line-height: 1.6; }
-    nav a { margin-right: 12px; text-decoration: none; font-weight: bold; color: #2c3e50; }
-    code { background:#f1f1f1; padding:2px 5px; border-radius:4px; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 30px;
+      line-height: 1.6;
+    }
+
+    nav a {
+      margin-right: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    code {
+      background: #f1f1f1;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #555;
+      text-align: center;
+    }
   </style>
 </head>
+
 <body>
   <h1>ℹ️ Sobre l’aplicació</h1>
   <nav><a href="index.html">⬅️ Inici</a></nav>
-  <p>Aquesta aplicació calcula el <strong>pes en tones</strong> dels diferents àrids a partir d’un <strong>volum en m³</strong>, aplicant densitats volumètriques habituals.</p>
-  <p>Resulta útil per estimar càrregues de camió i consums d’obra.</p>
-  <p><em>Nota</em>: Les densitats són valors típics de referència (estat solt). A obra poden variar segons humitat, compactació i natura del material.</p>
+  <h2>ℹ️ Sobre l’app</h2>
+  <p>Aquesta aplicació web està pensada per a tècnics, constructors i estudiants que necessiten convertir ràpidament
+    volums i pesos de materials de construcció.</p>
+
+  <ul>
+    <li>📥 <strong>Volum → Pes (m³ → t)</strong>: calcula el pes aproximat a partir d’un volum conegut i les densitats
+      típiques.</li>
+    <li>📤 <strong>Pes → Volum (t → m³)</strong>: calcula el volum aproximat a partir d’un pes conegut.</li>
+  </ul>
+
+  <p>Inclou materials habituals com sorres, graves, sauló, terres, reciclat, formigó i morter, amb densitats mitjanes de
+    referència.</p>
+
+  <p>⚠️ <em>Les dades són estimatives</em> i poden variar segons la humitat, compactació i origen del material.
+    Serveixen per càlculs previs i orientatius, no substitueixen un assaig de laboratori ni les dades oficials de
+    subministradors.</p>
+  <footer>
+    Versió 1.0 · Creat per <strong>Salvador Rodríguez</strong>
+  </footer>
 </body>
 </html>
