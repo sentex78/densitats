@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#2c3e50">
   <link rel="icon" href="icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="icon-512.png">
-  <style>
+    <style>
     :root {
       --brand: #2c3e50;
     }
@@ -62,12 +62,14 @@
     .grid {
       margin-top: 16px;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 480px;
+      table-layout: auto;
+      word-wrap: break-word;
     }
 
     th,
@@ -91,6 +93,10 @@
         padding: 8px;
         font-size: .95em;
       }
+
+      table {
+        font-size: 0.85em;
+      }
     }
 
     footer {
@@ -101,7 +107,6 @@
     }
   </style>
 </head>
-
 <body>
   <h2>📥 Volum → Pes (m³ → tn)</h2>
 
