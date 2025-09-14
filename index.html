@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inici — Calculadora d’Àrids</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2c3e50">
+  <link rel="icon" href="icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icon-512.png">
+  <style>
+    body { font-family: Arial, sans-serif; text-align:center; padding:40px; background:#f5f5f5; }
+    h1 { margin-bottom: 30px; }
+    nav a { display:inline-block; margin:10px; padding:12px 25px; font-size:1.1em; border-radius:8px; background:#2c3e50; color:#fff; text-decoration:none; }
+    nav a:hover { background:#1a252f; }
+  </style>
+</head>
+<body>
+  <h1>🪨 Calculadores d’Àrids</h1>
+  <p>Escull una opció:</p>
+  <nav>
+    <a href="calculator.html">⚖️ Pes per volum (m³ → t)</a>
+    <a href="about.html">ℹ️ Sobre l’app</a>
+  </nav>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+  </script>
+</body>
+</html>
