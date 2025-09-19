@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>📐 Triangle rectangle — A, B, C</title>
+  <style>
+    :root { --brand:#2c3e50; --bg:#f7f8fa; }
+    *{ box-sizing:border-box; }
+    body{ margin:0; padding:24px; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); }
+    .card{ max-width:720px; margin:0 auto; background:#fff; padding:20px; border-radius:14px; box-shadow:0 6px 24px rgba(0,0,0,.08); }
+    h2{ margin:0 0 14px; text-align:center; color:var(--brand); }
+    .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .field label{ font-weight:600; font-size:.95rem; }
+    .field input{ width:100%; margin-top:6px; padding:12px 10px; font-size:1.05rem; border:1px solid #dcdcdc; border-radius:10px; }
+    .field input:focus{ outline:none; border-color:#9bb1c8; box-shadow:0 0 0 3px rgba(155,177,200,.25); }
+    .actions{ margin-top:14px; display:flex; gap:10px; }
+    button{ flex:1; padding:12px; border:0; border-radius:10px; cursor:pointer; font-weight:700; }
+    .primary{ background:var(--brand); color:#fff; }
+    .secondary{ background:#eceff3; }
+    .hint{ text-align:center; color:#666; margin-top:10px; font-size:.95rem; }
+    @media (max-width:700px){ .grid{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Triangle rectangle — Calculadora A·B·C</h2>
+
+    <div class="grid">
+      <div class="field">
+        <label for="A">Catet A</label>
+        <input id="A" type="number" inputmode="decimal" step="any" min="0" placeholder="Ex: 3,5" />
+      </div>
+      <div class="field">
+        <label for="B">Catet B</label>
+        <input id="B" type="number" inputmode="decimal" step="any" min="0" placeholder="Ex: 4" />
+      </div>
+      <div class="field">
+        <label for="C">Hipotenusa C</label>
+        <input id="C" type="number" inputmode="decimal" step="any" min="0" placeholder="Ex: 5" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="reset" class="secondary">🧹 Esborrar</button>
+      <button id="calc"  class="primary">⇄ Calcular</button>
+    </div>
+
+    <p class="hint">Introdueix <strong>dos valors</strong>, el tercer es bloquejarà. Després prem <em>Calcular</em>.</p>
+  </div>
+
+  <script>
+    const A = document.getElementById("A");
+    const B = document.getElementById("B");
+    const C = document.getElementById("C");
+    const resetBtn = document.getElementById("reset");
+    const calcBtn  = document.getElementById("calc");
+
+    let afterCalc = false; // estat: hem calculat?
+
+    function countFilled(){
+      return [A,B,C].filter(el => el.value.trim() !== "").length;
+    }
+
+    function toNum(el){
+      const v = parseFloat(el.value.replace(",", "."));
+      return isNaN(v) ? NaN : v;
+    }
+
+    function round3(n){ return (Math.round(n * 1000) / 1000).toString(); }
+
+    // Bloquejar el tercer camp quan ja hi ha dos valors
+    function handleInput(){
+      if(afterCalc){
+        // després de calcular, qualsevol canvi esborra tot
+        clearAll();
+        afterCalc = false;
+        return;
+      }
+
+      const filled = [A,B,C].filter(el => el.value.trim() !== "");
+      const empty  = [A,B,C].filter(el => el.value.trim() === "");
+
+      if(filled.length === 2){
+        empty[0].disabled = true;
+      } else {
+        [A,B,C].forEach(el => el.disabled = false);
+      }
+    }
+
+    function calcular(){
+      if(countFilled() !== 2) return;
+
+      const a = A.value.trim() === "" ? NaN : toNum(A);
+      const b = B.value.trim() === "" ? NaN : toNum(B);
+      const c = C.value.trim() === "" ? NaN : toNum(C);
+
+      if (isNaN(a) && !isNaN(b) && !isNaN(c) && c > b){
+        A.value = round3(Math.sqrt(c*c - b*b));
+      } else if (isNaN(b) && !isNaN(a) && !isNaN(c) && c > a){
+        B.value = round3(Math.sqrt(c*c - a*a));
+      } else if (isNaN(c) && !isNaN(a) && !isNaN(b)){
+        C.value = round3(Math.sqrt(a*a + b*b));
+      }
+
+      // desbloquejar tots després de calcular
+      [A,B,C].forEach(el => el.disabled = false);
+      afterCalc = true;
+    }
+
+    function clearAll(){
+      [A,B,C].forEach(el => { el.value = ""; el.disabled = false; });
+    }
+
+    // Events
+    [A,B,C].forEach(el => el.addEventListener("input", handleInput));
+    resetBtn.addEventListener("click", () => { clearAll(); afterCalc = false; });
+    calcBtn.addEventListener("click", calcular);
+  </script>
+</body>
+</html>
